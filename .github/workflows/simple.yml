@@ -1,0 +1,10 @@
+name: test-gha-workflows
+
+on: [push]
+
+jobs:
+  run-shell-comand:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo a string
+        run: echo "hello world"
