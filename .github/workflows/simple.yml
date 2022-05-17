@@ -1,13 +1,6 @@
 name: PR Code check
 
-on:
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - labeled
-      - unlabeled
-      - synchronize
+on: [push]
 
 jobs:
   install-dependencies:
