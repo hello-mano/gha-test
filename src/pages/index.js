@@ -21,7 +21,7 @@ function Home() {
   return (
     <Container>
       <Head>
-        <title>Titulo maneiro</title>
+        <title>Hello GHA</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
