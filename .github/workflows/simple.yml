@@ -41,15 +41,6 @@ jobs:
         with:
           path: node_modules
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          
-      # we have to checkout to a PR's branch in order to run `jest --changedSince` correctly
-      - name: Checkout to PR's branch
-        if: ${{ env.ACT != 'true' }}
-        env:
-          BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
-        run: |
-          git config --global url."https://github.com/hello-mano/gha-test"
-          git checkout "$BRANCH_NAME"
 
       - name: Start test
         run: yarn test
