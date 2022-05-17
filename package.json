@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest --passWithNoTests --runInBand"
+    "test": "jest --config jest.config.json"
   },
   "dependencies": {
     "next": "10.0.7",
