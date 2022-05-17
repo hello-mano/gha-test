@@ -51,6 +51,13 @@ jobs:
         with:
             path: .jest-cache
             key: ${{ runner.os }}-${{ matrix.node-version }}-jest
+      
+      - name: Get number of CPU cores
+        id: cpu-cores
+        uses: SimenB/github-actions-cpu-cores@v1
+      
+      - name: Echo
+        run: echo ${{ steps.cpu-cores.outputs.count }
 
       - name: Start test
-        run: yarn test --ci --passWithNoTests --bail --coverage --silent --detectOpenHandles
+        run: yarn test --max-workers ${{ steps.cpu-cores.outputs.count }} --ci --passWithNoTests --bail --coverage --silent --detectOpenHandles
