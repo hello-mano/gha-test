@@ -53,4 +53,4 @@ jobs:
             key: ${{ runner.os }}-${{ matrix.node-version }}-jest
 
       - name: Start test
-        run: yarn test
+        run: yarn test --ci --passWithNoTests --bail --coverage --silent --forceExit
