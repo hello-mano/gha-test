@@ -24,3 +24,29 @@ jobs:
       - name: Install dependencies 
         if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn
+
+  unit-test:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: install-dependencies
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      
+      - name: Restore node_modules cache
+        id: yarn-cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          
+      # we have to checkout to a PR's branch in order to run `jest --changedSince` correctly
+      - name: Checkout to PR's branch
+        env:
+          BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
+        run: git checkout git@github.com:hello-mano/gha-test.git
+
+      - name: Start test
+        run: yarn test
