@@ -1,10 +1,33 @@
-name: test-gha-workflows
+name: PR Code check
 
-on: [push]
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - labeled
+      - unlabeled
+      - synchronize
 
 jobs:
-  run-shell-comand:
+  install-dependencies:
+    name: Install dependencies
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - name: echo a string
-        run: echo "hello world"
+      - uses: actions/checkout@v2
+  
+      - name: Restore node_modules cache
+        id: yarn-cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      
+      - name: Prepare NPM configuration
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: echo "//registry.npmjs.org/:_authToken=${{ env.NPM_TOKEN }}" >.npmrc
+
+      - name: Install dependencies 
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn
