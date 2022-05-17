@@ -26,7 +26,7 @@ function Home() {
       </Head>
 
       <Main>
-        <Title>Olazes, tudo bom!?</Title>
+        <Title>Hello, tudo bom!?</Title>
         <Counter />
         <ButtonContainer>
           <Button onClick={() => { publish('message', '[click] - clique aqui tbm') }}>
