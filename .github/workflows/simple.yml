@@ -57,7 +57,7 @@ jobs:
         uses: SimenB/github-actions-cpu-cores@v1
       
       - name: Echo jest location
-        run: echo yarn jest --showConfig
+        run: yarn jest --showConfig
       
       - name: Echo
         run: echo ${{steps.cpu-cores.outputs.count}}
