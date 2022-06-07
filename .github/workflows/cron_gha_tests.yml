@@ -21,12 +21,16 @@ jobs:
               path: node_modules
               key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           
+          - name: Get current date
+            id: date
+            run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+          
           - name: Cache Jest nightly
             id: cache-jest-cache
             uses: actions/cache@v2
             with:
                 path: /home/runner/work/gha-test/gha-test/.jest-cache
-                key: ${{ runner.os }}-${{ matrix.node-version }}-${{ steps.date.outputs.date }}-jest
+                key: ${{ runner.os }}-jest-${{ steps.date.outputs.date }}
           
           - name: Start test
             run: yarn test --changedSince=${{ github.event.pull_request.base.sha }} --max-workers=2 --ci --passWithNoTests --bail --coverage --silent
