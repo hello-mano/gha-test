@@ -85,7 +85,7 @@ describe('[Component] Counter Final', () => {
     const messages = publish.mock.calls;
     const [event, msg] = messages[1]
     expect(event).toEqual('message');
-    expect(msg).toMatch(/[3]/);
+    expect(msg).toMatch(/[2]/);
   });
 
 });
