@@ -1,8 +1,16 @@
 name: Cache Cron unit tests
 
 on:
+    workflow_dispatch:
     schedule:
-        - cron: '*/5 * * * *'
+        - cron: '0 0 * * *'
+    pull_request:
+        types:
+            - opened
+            - reopened
+            - labeled
+            - unlabeled
+            - synchronize
 
 jobs:
     unit-test-nightly-cache:
@@ -26,11 +34,10 @@ jobs:
             run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
           
           - name: Cache Jest nightly
-            id: cache-jest-cache
             uses: actions/cache@v2
             with:
-                path: /home/runner/work/gha-test/gha-test/.jest-cache
+                path: '**/.jest_cache'
                 key: ${{ runner.os }}-jest-${{ steps.date.outputs.date }}
           
           - name: Start test
-            run: yarn test --changedSince=${{ github.event.pull_request.base.sha }} --max-workers=2 --ci --passWithNoTests --bail --coverage --silent
+            run: yarn test --max-workers=2 --ci --passWithNoTests --bail --coverage --silent

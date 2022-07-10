@@ -49,18 +49,20 @@ jobs:
         id: cache-jest-cache
         uses: actions/cache@v2
         with:
-            path: /home/runner/work/gha-test/gha-test/.jest-cache
-            key: ${{ runner.os }}-${{ matrix.node-version }}-jest
+            path: '**/.jest_cache'
+            key: ${{ runner.os }}-${{ github.event.pull_request.number }}-jest
+            restore-keys: |
+                - ${{ runner.os }}-jest-${{ steps.date.outputs.date }}
       
       - name: Get number of CPU cores
         id: cpu-cores
         uses: SimenB/github-actions-cpu-cores@v1
       
       - name: Echo jest location
-        run: yarn jest --showConfig
+        run: pwd
       
       - name: Echo
         run: echo ${{steps.cpu-cores.outputs.count}}
 
       - name: Start test
-        run: yarn test --changedSince=${{ github.event.pull_request.base.sha }} --max-workers=2 --ci --passWithNoTests --bail --coverage --silent
+        run: yarn test --max-workers=2 --ci --passWithNoTests --bail --coverage --silent
