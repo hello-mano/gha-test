@@ -33,13 +33,13 @@ jobs:
             id: date
             run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
           
-          - name: Cache Jest nightly
-            uses: actions/cache@v2
-            with:
-                path: '**/.jest_cache'
-                key: ${{ runner.os }}-jest-${{ steps.date.outputs.date }}
-          
           - name: Start test
             working-directory: ./
             shell: bash
             run: yarn test --cacheDirectory="./.jest_cache" --max-workers=2 --ci --passWithNoTests --bail --coverage --silent
+          
+          - name: Archive unit test cache
+            uses: actions/upload-artifact@v3
+            with:
+              name: ${{ runner.os }}-jest-${{ steps.date.outputs.date }}
+              path: '**/.jest_cache'
