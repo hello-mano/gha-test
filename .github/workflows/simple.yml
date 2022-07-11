@@ -59,7 +59,6 @@ jobs:
                 - ${{ runner.os }}-jest-${{ steps.date.outputs.date }}
             
       - name: Restore cache artifact
-        if: ${{ steps.jest-pr-cache.outputs.cache-hit == 'false' }}
         uses: actions/download-artifact@v3
         with:
           name: ${{ runner.os }}-jest-${{ steps.date.outputs.date }}
