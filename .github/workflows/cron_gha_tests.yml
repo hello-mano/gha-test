@@ -11,8 +11,9 @@ on:
             - labeled
             - unlabeled
             - synchronize
+    push:
         branches:
-             - master
+            - master
 
 jobs:
     unit-test-nightly-cache:
