@@ -50,7 +50,7 @@ jobs:
         uses: actions/cache@v2
         with:
             path: '**/.jest_cache'
-            key: ${{ runner.os }}-${{ github.event.pull_request.number }}-jest
+            key: ${{ runner.os }}-01-jest
             restore-keys: |
                 - ${{ runner.os }}-jest-${{ steps.date.outputs.date }}
       
