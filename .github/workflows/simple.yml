@@ -65,4 +65,6 @@ jobs:
         run: echo ${{steps.cpu-cores.outputs.count}}
 
       - name: Start test
-        run: yarn test --max-workers=2 --ci --passWithNoTests --bail --coverage --silent
+        working-directory: ./
+        shell: bash
+        run: yarn test --cacheDirectory="./.jest_cache" --max-workers=2 --ci --passWithNoTests --bail --coverage --silent
