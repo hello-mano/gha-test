@@ -54,7 +54,9 @@ jobs:
         uses: actions/cache@v2
         with:
             path: '**/.jest_cache'
-            key: ${{ runner.os }}-02-jest
+            key: ${{ runner.os }}-03-jest
+            restore-keys: |
+                - ${{ runner.os }}-jest-${{ steps.date.outputs.date }}
             
       - name: Restore cache artifact
         if: ${{ steps.jest-pr-cache.outputs.cache-hit == 'false' }}
