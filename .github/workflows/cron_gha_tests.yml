@@ -4,13 +4,6 @@ on:
     workflow_dispatch:
     schedule:
         - cron: '0 0 * * *'
-    pull_request:
-        types:
-            - opened
-            - reopened
-            - labeled
-            - unlabeled
-            - synchronize
     push:
         branches:
             - master
