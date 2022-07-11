@@ -16,13 +16,6 @@ jobs:
         with:
           path: node_modules
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          
-      - name: Cache Jest cache
-        id: cache-jest-cache
-        uses: actions/cache@v2
-        with:
-            path: .jest-cache
-            key: ${{ runner.os }}-${{ matrix.node-version }}-jest
 
       - name: Install dependencies 
         if: steps.yarn-cache.outputs.cache-hit != 'true'
@@ -50,7 +43,6 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
       - name: Cache Jest cache
-        id: jest-pr-cache
         uses: actions/cache@v2
         with:
             path: '**/.jest_cache'
@@ -62,6 +54,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ${{ runner.os }}-jest-${{ steps.date.outputs.date }}
+          path: '**/.jest_cache'
 
       - name: Start test
         working-directory: ./
