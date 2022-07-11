@@ -50,23 +50,17 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
       - name: Cache Jest cache
-        id: cache-jest-cache
+        id: jest-pr-cache
         uses: actions/cache@v2
         with:
             path: '**/.jest_cache'
             key: ${{ runner.os }}-02-jest
-            restore-keys: |
-                - ${{ runner.os }}-jest-${{ steps.date.outputs.date }}
-      
-      - name: Get number of CPU cores
-        id: cpu-cores
-        uses: SimenB/github-actions-cpu-cores@v1
-      
-      - name: Echo jest location
-        run: pwd
-      
-      - name: Echo
-        run: echo ${{steps.cpu-cores.outputs.count}}
+            
+      - if: ${{ steps.jest-pr-cache.outputs.cache-hit == 'false' }}
+      - name: Restore cache artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ runner.os }}-jest-${{ steps.date.outputs.date }}
 
       - name: Start test
         working-directory: ./
