@@ -45,7 +45,7 @@ jobs:
         uses: actions/cache@v3
         with:
             path: '**/.jest_cache'
-            key: ${{ runner.os }}-10-jest
+            key: ${{ runner.os }}-1.1-jest
 
             restore-keys: |
                 - ${{ runner.os }}-10-jest
