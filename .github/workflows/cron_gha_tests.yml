@@ -14,13 +14,13 @@ jobs:
         runs-on: ubuntu-latest
         timeout-minutes: 10
         steps:
-          - uses: actions/checkout@v2
+          - uses: actions/checkout@v3
             with:
               fetch-depth: 0
           
           - name: Restore node_modules cache
             id: yarn-cache
-            uses: actions/cache@v2
+            uses: actions/cache@v3
             with:
               path: node_modules
               key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
@@ -30,7 +30,7 @@ jobs:
             run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
           
           - name: Cache Jest nightly
-            uses: actions/cache@v2
+            uses: actions/cache@v3
             with:
                 path: '**/.jest_cache'
                 key: ${{ runner.os }}-jest-${{ steps.date.outputs.date }}
