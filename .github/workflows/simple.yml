@@ -45,12 +45,9 @@ jobs:
         uses: actions/cache@v3
         with:
             path: '**/.jest_cache'
-            key: ${{ runner.os }}-10-jest
-
+            key: ${{ runner.os }}-2.1-jest
             restore-keys: |
-                - ${{ runner.os }}-10-jest
-                - ${{ runner.os }}-jest-${{ steps.date.outputs.date }}
-                - ${{ runner.os }}-jest-
+              ${{ runner.os }}-jest-${{ steps.date.outputs.date }}
 
       - name: Start test
         working-directory: ./
