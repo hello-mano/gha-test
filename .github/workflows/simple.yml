@@ -28,8 +28,6 @@ jobs:
     needs: install-dependencies
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
       
       - name: Restore node_modules cache
         id: yarn-cache
@@ -46,7 +44,7 @@ jobs:
         uses: actions/cache@v3
         with:
             path: '**/.jest_cache'
-            key: ${{ runner.os }}-05-jest
+            key: ${{ runner.os }}-06-jest
             restore-keys: |
                 - ${{ runner.os }}-jest-${{ steps.date.outputs.date }}
                 - ${{ runner.os }}-jest-
