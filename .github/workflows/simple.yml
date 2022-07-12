@@ -49,12 +49,7 @@ jobs:
             key: ${{ runner.os }}-03-jest
             restore-keys: |
                 - ${{ runner.os }}-jest-${{ steps.date.outputs.date }}
-            
-      - name: Restore cache artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: ${{ runner.os }}-jest-${{ steps.date.outputs.date }}
-          path: '**/.jest_cache'
+                - ${{ runner.os }}-jest-
 
       - name: Start test
         working-directory: ./
