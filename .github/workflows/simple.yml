@@ -41,11 +41,13 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
       - name: Cache Jest cache
+        id: cache-jest-pr
         uses: actions/cache@v3
         with:
             path: '**/.jest_cache'
-            key: ${{ runner.os }}-09-jest
+            key: ${{ runner.os }}-10-jest
             restore-keys: |
+                - ${{ runner.os }}-10-jest
                 - ${{ runner.os }}-jest-${{ steps.date.outputs.date }}
                 - ${{ runner.os }}-jest-
 

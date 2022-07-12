@@ -40,6 +40,7 @@ jobs:
             run: yarn test --cacheDirectory="./.jest_cache" --max-workers=2 --ci --passWithNoTests --bail --coverage --silent
           
           - name: Archive unit test cache
+            if: steps.cache-jest-nightly.outputs.cache-hit != 'true'
             uses: actions/upload-artifact@v3
             with:
               name: ${{ runner.os }}-jest-${{ steps.date.outputs.date }}
