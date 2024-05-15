@@ -1,0 +1,59 @@
+---
+name: 'Run Load Test'
+
+permissions:
+    id-token: write
+    contents: read
+
+on:
+    workflow_dispatch:
+        inputs:
+            fragment:
+                type: string
+                description: fragment name
+                required: true
+            environment:
+                type: choice
+                description: In which environment?
+                required: true
+                default: 'staging'
+                options:
+                    - live
+                    - staging
+            load-generation-type:
+                description: 'Load generator'
+                required: true
+                type: choice
+                default: 'JMeter'
+                options:
+                    - K6
+                    - JMeter
+            distributed-pods:
+                description: 'Number of pods'
+                type: choice
+                default: '1'
+                options:
+                    - '1'
+                    - '2'
+                    - '3'
+                    - '4'
+                    - '5'
+            test-file:
+                description: 'Name of the test file'
+                required: true
+                type: text
+            test-data-file:
+                description: 'Name of the test data file'
+                required: false
+                type: text
+            env-vars-file:
+                description: 'Name of the test env file'
+                required: false
+                type: text
+            slack-channel:
+                type: string
+                default: '#test-channel'
+                description: To which slack channel should the report be sent?
+            auth_token:
+                type: string
+                description: User auth token
