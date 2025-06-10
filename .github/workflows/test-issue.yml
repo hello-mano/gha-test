@@ -1,0 +1,17 @@
+name: Debug playwright issue
+
+on:
+    workflow_dispatch:
+        inputs:
+            fragment:
+                type: string
+                description: fragment name
+                required: true
+
+jobs:
+  install-dependencies:
+    name: Install Playwright Browsers
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium-headless-shell
