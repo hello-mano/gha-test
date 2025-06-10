@@ -9,8 +9,7 @@ on:
 
 jobs:
   install-dependencies:
-    name: Install Playwright Browsers
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps chromium-headless-shell
