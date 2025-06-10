@@ -6,7 +6,6 @@ on:
             fragment:
                 type: string
                 description: fragment name
-                required: true
 
 jobs:
   install-dependencies:
