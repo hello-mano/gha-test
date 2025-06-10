@@ -1,4 +1,4 @@
-name: PR Code check
+name: Debug playwright issue
 
 on:
     workflow_dispatch:
